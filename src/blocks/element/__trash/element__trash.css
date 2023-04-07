@@ -1,0 +1,15 @@
+.element__trash {
+  width: 18px;
+  height: 19px;
+  background-image: url(../../../images/musor-min.svg);
+  background-color: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  transition: 0.3s;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}

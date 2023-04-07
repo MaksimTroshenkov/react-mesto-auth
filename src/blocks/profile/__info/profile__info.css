@@ -1,0 +1,23 @@
+.profile__info {
+  margin: 22px auto 0 30px;
+  max-width: 336px;
+  color: #FFFFFF;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 920px) {
+  .profile__info {
+    margin-left: 15px;
+    max-width: 270px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .profile__info {
+    margin: 22.25px 0 0;
+    max-width: 282px;
+  }
+}

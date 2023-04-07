@@ -1,0 +1,12 @@
+.sign-content__sign-in {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #fff;
+  margin: 15px 0 0 0;
+}
+@media screen and (max-width: 360px) {
+  .sign-content__sign-in {
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,10 @@
+.header__container {
+	display: flex;
+	gap: 24px;
+}
+@media screen and (max-width: 583px) {
+	.header__container {
+	  flex-direction: column;
+		gap: 18px;
+	}
+}

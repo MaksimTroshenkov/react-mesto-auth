@@ -1,0 +1,9 @@
+.element__container {
+  padding: 25px 20px 31px 21px;
+  max-width: 246px;
+  min-height: 38px;
+  font-family: 'Inter', Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,6 @@
+.header__menu-container_active {
+  background-image: url(../../../../images/Close-min.svg);
+  background-size: 100% 100%;
+  width: 20px;
+  height: 20px;
+}
