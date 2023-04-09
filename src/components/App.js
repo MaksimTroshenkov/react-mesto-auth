@@ -12,8 +12,8 @@ export default function App() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if(localStorage.getItem("token")) {
-      const jwt = localStorage.getItem("token");
+    if(localStorage.getItem('token')) {
+      const jwt = localStorage.getItem('token');
       signApi.user(jwt)
       .then(res => {
         setUserEmail(res.data.email);

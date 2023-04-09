@@ -21,7 +21,7 @@ export default function Header(props) {
 
   return (
     <header className={`header ${menu && "header_active"}`}>
-      <a href="#" className="header__logo" title="Место - Россия"></a>
+      <Link to="/" className="header__logo" title="Место - Россия"></Link>
       {localStorage.getItem("token") ?
       <>
       <div className={`header__container ${menu && "header__container_active"}`}>
