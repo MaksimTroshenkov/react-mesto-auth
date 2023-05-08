@@ -1,66 +1,68 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { useForm } from "./useForm";
 
-export default function EditProfilePopup(props) {
+export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, onLoading }) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [userName, setUserName] = React.useState('');
-  const [userAbout, setUserAbout] = React.useState('');
+  const { enteredValues, errors, handleChange, isFormValid, resetForm } = useForm();
 
   React.useEffect(() => {
-    setUserName(currentUser.name ?? '');
-    setUserAbout(currentUser.about ?? '');
-  }, [currentUser, props.isOpen]);
+    currentUser ? resetForm(currentUser) : resetForm();
+  }, [resetForm, isOpen, currentUser]);
 
-  function handleChangeName(evt) {
-    setUserName(evt.target.value);
-  }
-
-  function handleChangeDesc(evt) {
-    setUserAbout(evt.target.value);
-  }
-
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    props.onUpdateUser({
-      name: userName,
-      about: userAbout
+  function handleSubmit(e) {
+    e.preventDefault();
+    onUpdateUser({
+      name: enteredValues.name,
+      about: enteredValues.about,
     });
   }
 
-  return ( 
-    <PopupWithForm title="Редактировать профиль" name="edit" children={ 
-      <> 
-        <input 
-          required 
-          placeholder="Имя" 
-          name="name" 
-          minLength="2" 
-          maxLength="40" 
-          className="popup__input popup__input_type_name" 
-          id="names-input" 
+  return (
+    <PopupWithForm
+      name="username"
+      title="Редактировать профиль"
+      subtitle="Сохранить"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      onLoading={onLoading}
+      isFormValid={!isFormValid}
+      loadingSubtitle="Сохранение..."
+    >
+      <>
+        <input
+          onChange={handleChange}
+          className="popup__input popup__input_type_name"
+          id="name"
           type="text"
-          value={userName}
-          onChange={handleChangeName}
-        /> 
-        <span className="form-input-error names-input-error"></span> 
-        <input 
-          required 
-          placeholder="О себе" 
-          name="about" 
-          minLength="2" 
-          maxLength="200" 
-          className="popup__input popup__input_type_text" 
-          id="about-input" 
+          name="name"
+          placeholder="Имя"
+          value={enteredValues.name || ""}
+          required
+          minLength="2"
+          maxLength="40"
+        />
+          <span className="form-input-error names-input-error">
+            {errors.name}
+          </span>
+        <input
+          onChange={handleChange}
+          className="popup__input popup__input_type_text"
+          id="about"
           type="text"
-          value={userAbout}
-          onChange={handleChangeDesc}
-        /> 
-        <span className="form-input-error about-input-error"></span> 
-      </> 
-      } isOpen={props.isOpen}
-      onClose={props.onClose}
-      buttonText="Cохранить"
-      onSubmit={handleSubmit} /> 
-  ); 
+          name="about"
+          placeholder="О себе"
+          value={enteredValues.about || ""}
+          required
+          minLength="2"
+          maxLength="200"
+        />
+          <span className="form-input-error about-input-error">
+            {errors.about}
+          </span>
+      </>
+    </PopupWithForm>
+  );
 }

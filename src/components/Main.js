@@ -2,34 +2,53 @@ import React from 'react';
 import Card from "./Card";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export default function Main(props) {
+export default function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  cards,
+  onCardLike,
+  onWithConfirmation,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
+  const { name, about, avatar } = currentUser;
+
   return (
-    <main className="content">
+    <main className="content page__content">
       <section className="profile">
-        <div className="profile__avatar-container" onClick={props.onEditAvatar}>
-          <img className="profile__avatar" src={currentUser.avatar} alt="Ваш аватар" />
+        <div className="profile__avatar-container">
+          <img className="profile__avatar" src={avatar} alt="Аватар" />
           <div className="profile__avatar-edit-btn-container">
-            <button className="profile__avatar-edit-btn" type="button"></button>
+            <button
+              onClick={onEditAvatar} className="profile__avatar-edit-btn" type="button"></button>
           </div>
         </div>
         <div className="profile__info">
           <div className="profile__name-info">
-            <h1 className="profile__name">{currentUser.userName}</h1>
-            <button className="profile__edit-button button-opacity" type="button" onClick={props.onEditProfile}></button>
+            <h1 className="profile__name">{name}</h1>
+            <button onClick={onEditProfile} className="profile__edit-button button-opacity" aria-label="Открыть" type="button"></button>
           </div>
-          <p className="profile__text">{currentUser.about}</p>
+        <p className="profile__text">{about}</p>
         </div>
-        <button className="profile__add-button button-opacity" type="button" onClick={props.onAddPlace}></button>
+        <button onClick={onAddPlace} type="button" className="profile__add-button button-opacity" aria-label="Открыть"></button>
       </section>
 
-      <section className="elements">
+      <section className="elements" aria-label="Карточки с интересными местами в России">
         <div className="element">
-          {props.cards.map(item => (
-            <Card onCardClick={props.onCardClick} key={item._id} card={item} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete} />
-          ))};
+          {cards.map((card) => {
+            return (
+              <Card
+                onCardClick={onCardClick}
+                key={card._id}
+                card={card}
+                onCardLike={onCardLike}
+                onWithConfirmation={onWithConfirmation}
+              />
+            );
+          })}
         </div>
       </section>
     </main>
-  )
+  );
 }

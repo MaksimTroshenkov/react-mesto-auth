@@ -1,31 +1,53 @@
-import React from "react";
-import Header from "./Header";
-import SignMain from "./SignMain";
-import signApi from "../utils/signApi";
-import { useNavigate } from "react-router-dom";
+import { useForm } from "./useForm";
 
-export default function Login(props) {
-  const navigate = useNavigate();
+export const Login = ({ onLogin }) => {
+  const { enteredValues, errors, handleChange } = useForm({});
 
-  function setData(data) {
-    signApi.signIn({
-      pass: data.pass.current.value,
-      email: data.current.value
-    })
-    .then(res => {
-      localStorage.setItem("token", res.token);
-      props.setHandleLogin();
-      navigate("/");
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!enteredValues.email || !enteredValues.password) {
+      return;
+    }
+    onLogin(enteredValues);
   }
 
   return (
-    <>
-    <Header signLink="/sign-up" signText="Регистрация" />
-    <SignMain title="Вход" submitText="Войти" setData={setData} />
-    </>
+    <div className="auth">
+      <h2 className="auth__title">Вход</h2>
+      <form className="auth__form form" onSubmit={handleSubmit} noValidate>
+        <label className="auth__field">
+          <input
+            onChange={handleChange}
+            className="auth__input"
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={enteredValues.email || ""}
+            required
+          />
+          {errors.name && <span className="auth__error">{errors.email}</span>}
+        </label>
+        <label className="auth__field">
+          <input
+            onChange={handleChange}
+            className="auth__input"
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Пароль"
+            value={enteredValues.password || ""}
+            required
+            minLength="8"
+          />
+          {errors.about && (
+            <span className="auth__error">{errors.password}</span>
+          )}
+        </label>
+        <button className="auth__submit button" type="submit">
+          Войти
+        </button>
+      </form>
+    </div>
   );
-}
+};

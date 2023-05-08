@@ -1,0 +1,24 @@
+.header__link {
+  display: table-cell;
+  vertical-align: bottom;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+  padding: 0;
+  transition: 0.5s;
+}
+
+.header__link:hover {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 620px) {
+  .header__link {
+    margin-right: 30px;
+    width: 89px;
+    height: 17px;
+  }
+}

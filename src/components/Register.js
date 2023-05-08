@@ -1,34 +1,55 @@
 import React from "react";
-import Header from "./Header";
-import SignMain from './SignMain';
-import InfoTooltip from "./InfoTooltip";
-import signApi from "../utils/signApi";
+import { Link } from "react-router-dom";
+import { useForm } from "./useForm";
 
-export default function Register() {
-  const [signUpStatus, setSignUpStatus] = React.useState(null);
-  const [statusOpened, setStatusOpened] = React.useState(false);
+export const Register = ({ onRegister }) => {
+  const { enteredValues, errors, handleChange } = useForm();
 
-  function setData(data) {
-    signApi.signUp({
-      pass: data.inputPass.current.value,
-      email: data.inputEmail.current.value
-    })
-    .then(() => {
-      setSignUpStatus(true);
-    })
-    .catch(() => {
-      setSignUpStatus(false);
-    })
-    .finally(() => {
-      setStatusOpened(true);
-    })
+  function handleSubmit(e) {
+    e.preventDefault();
+    onRegister(enteredValues);
   }
 
   return (
-    <>
-      <Header signLink="/sign-in" signText="Войти" />
-      <SignMain title="Регистрация" submitText="Зарегистрироваться" signUp={true} setData={setData} />
-      <InfoTooltip signUpStatus={signUpStatus} statusOpened={statusOpened} setStatusOpened={setStatusOpened} />
-    </>
+    <div className="auth">
+      <h2 className="auth__title">Регистрация</h2>
+      <form className="auth__form form" onSubmit={handleSubmit} noValidate>
+        <label className="auth__field">
+          <input
+            onChange={handleChange}
+            className="auth__input"
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={enteredValues.email || ""}
+            required
+          />
+          {errors.name && <span className="auth__error">{errors.email}</span>}
+        </label>
+        <label className="auth__field">
+          <input
+            onChange={handleChange}
+            className="auth__input"
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Пароль"
+            value={enteredValues.password || ""}
+            required
+            minLength="8"
+          />
+          {errors.about && (
+            <span className="auth__error">{errors.password}</span>
+          )}
+        </label>
+        <button className="auth__submit button" type="submit">
+          Зарегистрироваться
+        </button>
+        <Link to="/sign-in" className="auth__login-hint">
+          Уже зарегистрированы? Войти
+        </Link>
+      </form>
+    </div>
   );
-}
+};
