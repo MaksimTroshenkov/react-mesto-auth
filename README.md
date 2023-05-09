@@ -27,8 +27,8 @@
 
 ## Инструкция по развёртыванию:
 ```
-git clone 
-cd mesto
+git clone git@github.com:MaksimTroshenkov/react-mesto-auth.git
+cd react-mesto-auth
 npm i webpack --save-dev
 npm run build
 npm run dev
