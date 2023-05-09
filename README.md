@@ -23,7 +23,7 @@
 - React JS
 
 ## Ссылка на проект:
-[Проект на GitHub Pages](https://MaksimTroshenkov.github.io/mesto-react-auth/)
+[Проект на GitHub Pages](https://maksimtroshenkov.github.io/react-mesto-auth/)
 
 ## Инструкция по развёртыванию:
 ```
